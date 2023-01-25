@@ -1,0 +1,33 @@
+name: Run cubist Rust template tests
+description: Default cubist Rust template test runner
+
+inputs:
+  template:
+    description: "Template to test"
+    required: true
+  secret-ssh-key:
+    description: "Secret ssh key to use"
+    required: true
+
+runs:
+  using: "composite"
+  steps:
+  - name: cubist build
+    run: cubist build
+    shell: bash
+    working-directory: ${{ inputs.template }}
+
+  - name: cargo build
+    uses: cubist-labs/cubist/.github/actions/run-with-ssh-key@main
+    with:
+      secret-ssh-key: ${{ inputs.secret-ssh-key }}
+      run: cd "${{ inputs.template }}" && cargo build
+
+  - name: test
+    working-directory: ${{ inputs.template }}
+    shell: bash
+    run: |
+      set -euo pipefail
+      cubist start
+      cargo run
+      cubist stop

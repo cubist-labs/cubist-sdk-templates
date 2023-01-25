@@ -1,0 +1,33 @@
+name: Run cubist node template tests
+description: Default cubist node template test runner
+
+inputs:
+  template:
+    description: "Template to test"
+    required: true
+  secret-ssh-key:
+    description: "Secret ssh key to use"
+    required: true
+
+
+runs:
+  using: "composite"
+  steps:
+
+  - name: Install yarn dependencies
+    uses: cubist-labs/cubist/.github/actions/run-with-ssh-key@main
+    with:
+      secret-ssh-key: ${{ inputs.secret-ssh-key }}
+      run: |
+        cd "${{ inputs.template }}"
+        yarn install
+
+  - name: Build cubist project
+    run: cubist build
+    working-directory: ${{ inputs.template }}
+    shell: bash
+
+  - name: Test app
+    run: yarn test
+    working-directory: ${{ inputs.template }}
+    shell: bash

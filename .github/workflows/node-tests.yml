@@ -1,0 +1,79 @@
+name: Node.js tests
+
+on:
+  # Run every day at 1am to initialize the daily cache
+  schedule:
+  - cron: "0 1 * * *"
+  workflow_dispatch:
+  pull_request:
+    types: [synchronize, opened, reopened, ready_for_review]
+    branches: [ "main" ]
+  push:
+    branches: [ "main" ]
+
+env:
+  CARGO_TERM_COLOR: always
+
+jobs:
+  node-tests:
+    runs-on: ubuntu-latest
+    if: github.event.pull_request.draft == false
+    strategy:
+      matrix:
+        node-version: [16.x, 18.x, 19.x]
+    steps:
+    - name: Check out repository
+      uses: actions/checkout@v3
+
+    - name: Use Node.js ${{ matrix.node-version }}
+      uses: actions/setup-node@v3
+      with:
+        node-version: ${{ matrix.node-version }}
+
+    - name: Install Cubist CLI
+      uses: cubist-labs/cubist/.github/actions/run-with-ssh-key@main
+      with:
+        secret-ssh-key: ${{ secrets.CUBIST_DEV_READONLY_BOT_SSH_PRIVATE_KEY }}
+        run: |
+          cargo --config net.git-fetch-with-cli=true install --git ssh://git@github.com/cubist-labs/cubist cubist-cli
+
+    - name: Test TypeScript Storage
+      uses: ./.github/actions/node-test
+      with:
+        template: ./Storage/TypeScript
+        secret-ssh-key: ${{ secrets.CUBIST_NODE_SDK_READONLY_SSH_PRIVATE_KEY }}
+
+    - name: Test JavaScript Storage
+      uses: ./.github/actions/node-test
+      with:
+        template: ./Storage/JavaScript
+        secret-ssh-key: ${{ secrets.CUBIST_NODE_SDK_READONLY_SSH_PRIVATE_KEY }}
+
+    - name: Test TypeScript MPMC
+      uses: ./.github/actions/node-test
+      with:
+        template: ./MPMC/TypeScript
+        secret-ssh-key: ${{ secrets.CUBIST_NODE_SDK_READONLY_SSH_PRIVATE_KEY }}
+
+    - name: Test JavaScript MPMC
+      uses: ./.github/actions/node-test
+      with:
+        template: ./MPMC/JavaScript
+        secret-ssh-key: ${{ secrets.CUBIST_NODE_SDK_READONLY_SSH_PRIVATE_KEY }}
+
+    - name: Test TypeScript TokenBridge
+      uses: ./.github/actions/node-test
+      with:
+        template: ./TokenBridge/TypeScript
+        secret-ssh-key: ${{ secrets.CUBIST_NODE_SDK_READONLY_SSH_PRIVATE_KEY }}
+
+    - name: Test JavaScript TokenBridge
+      uses: ./.github/actions/node-test
+      with:
+        template: ./TokenBridge/JavaScript
+        secret-ssh-key: ${{ secrets.CUBIST_NODE_SDK_READONLY_SSH_PRIVATE_KEY }}
+
+    # Only run a single instance of this workflow per branch/tag/node-version
+    concurrency:
+      group: ${{ github.workflow }}-${{ github.ref }}-${{ matrix.node-version }}
+      cancel-in-progress: true

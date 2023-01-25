@@ -1,0 +1,29 @@
+{
+  "author": "Cubist <hello@cubist.dev>",
+  "name": "template-Storage-JavaScript",
+  "version": "0.0.1",
+  "license": "MIT OR Apache-2.0",
+  "description": "JavaScript Web3 Cubist App",
+  "type": "module",
+  "dependencies": {
+    "@cubist-labs/cubist": "git+ssh://git@github.com:cubist-labs/cubist-node-sdk",
+    "@openzeppelin/contracts": "^4.8.0"
+  },
+  "devDependencies": {
+    "@jest/globals": "^29.3.1",
+    "chai": "^4.3.7",
+    "jest": "^29.3.1"
+  },
+  "scripts": {
+    "test": "NODE_OPTIONS=--experimental-vm-modules npx jest",
+    "deploy": "node ./src/deploy.js",
+    "inc": "node ./src/inc.js",
+    "dec": "node ./src/dec.js",
+    "store": "node ./src/store.js",
+    "retrieve": "node ./src/retrieve.js"
+  },
+  "keywords": [
+    "web3",
+    "cubist"
+  ]
+}

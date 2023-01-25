@@ -1,0 +1,29 @@
+[package]
+name = "template-TokenBridge-Rust"
+version = "0.1.0"
+edition = "2021"
+default-run = 'main'
+license = "MIT OR Apache-2.0"
+
+[[bin]]
+name = "main"
+path = "src/main.rs"
+
+[[bin]]
+name = "cli"
+path = "src/cli.rs"
+
+[dependencies]
+cubist-config = { git = "ssh://git@github.com/cubist-labs/cubist.git", package = "cubist-config" }
+cubist-sdk = { git = "ssh://git@github.com/cubist-labs/cubist.git", package = "cubist-sdk" }
+clap = "4.0.32"
+color-eyre = "0.6.2"
+ethers = { version = "1.0.2" }
+ethers-core = { version = "1.0.2" }
+ethers-contract = { version = "1.0.2" }
+ethers-providers = { version = "1.0.2" }
+eyre = "0.6.8"
+lazy_static = "1.4.0"
+tracing-subscriber = "0.3.16"
+thiserror = "1.0.38"
+tokio = "1.24.1"

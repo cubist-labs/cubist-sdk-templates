@@ -1,0 +1,43 @@
+{
+  "type": "JavaScript",
+  "allow_import_from_external": true,
+  "build_dir": "build",
+  "deploy_dir": "deploy",
+  "contracts": {
+    "root_dir": "contracts",
+    "targets": {
+      "polygon" : {
+        "files": [
+            "./contracts/ERC20Bridged.sol"
+        ]
+      },
+      "ethereum": {
+        "files": [
+            "./contracts/TokenSender.sol"
+        ]
+      }
+    }
+  },
+  "network_profiles": {
+      "default": {
+          "ethereum": {
+            "url": "http://127.0.0.1:8545",
+            "bootstrap_mnemonic": {
+              "seed": { "env": "ETHEREUM_MNEMONIC" },
+              "account_count": 2
+            }
+          },
+          "polygon": {
+            "url": "http://127.0.0.1:9545",
+            "local_accounts": [
+              {
+                "mnemonic": {
+                  "seed": { "env": "POLYGON_MNEMONIC" },
+                  "account_count": 3
+                }
+              }
+            ]
+          }
+      }
+  }
+}

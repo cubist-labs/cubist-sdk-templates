@@ -1,0 +1,8 @@
+node_modules
+build
+target
+src/cubist_gen
+src/cubist_gen.rs
+*~
+\#*\#
+.\#*

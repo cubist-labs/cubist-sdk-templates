@@ -1,0 +1,5 @@
+/target
+/build
+/node_modules
+/src/cubist_gen.rs
+/src/cubist_gen

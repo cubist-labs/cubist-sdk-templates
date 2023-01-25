@@ -1,0 +1,29 @@
+{
+  "author": "Cubist <hello@cubist.dev>",
+  "name": "template-TokenBridge-JavaScript",
+  "version": "0.0.1",
+  "license": "MIT OR Apache-2.0",
+  "description": "JavaScript Web3 Cubist App",
+  "type": "module",
+  "main": "src/index.js",
+  "dependencies": {
+    "@cubist-labs/cubist": "git+ssh://git@github.com:cubist-labs/cubist-node-sdk",
+    "@openzeppelin/contracts": "^4.8.0"
+  },
+  "devDependencies": {
+    "@jest/globals": "^29.3.1",
+    "chai": "^4.3.7",
+    "jest": "^29.3.1"
+  },
+  "scripts": {
+    "test": "NODE_OPTIONS=--experimental-vm-modules npx jest",
+    "deploy": "node ./src/deploy.js",
+    "balances": "node ./src/balances.js",
+    "buy": "node ./src/buy.js",
+    "sell": "node ./src/sell.js"
+  },
+  "keywords": [
+    "web3",
+    "cubist"
+  ]
+}

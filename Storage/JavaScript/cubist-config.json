@@ -1,0 +1,26 @@
+{
+  "type": "JavaScript",
+  "build_dir": "build",
+  "deploy_dir": "deploy",
+  "contracts": {
+    "root_dir": "contracts",
+    "targets": {
+      "ethereum" : {
+        "files": ["./contracts/StorageReceiver.sol"]
+      },
+      "polygon": {
+        "files": ["./contracts/StorageSender.sol"]
+      }
+    },
+    "import_dirs": [
+      "node_modules"
+    ]
+  },
+  "allow_import_from_external": true,
+  "network_profiles": {
+      "default": {
+          "ethereum": { "url": "http://127.0.0.1:8545/" },
+          "polygon":  { "url": "http://127.0.0.1:9545" }
+      }
+  }
+}
