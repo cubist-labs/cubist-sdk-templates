@@ -30,7 +30,7 @@ jobs:
       uses: cubist-labs/cubist/.github/actions/run-with-ssh-key@main
       with:
         secret-ssh-key: ${{ secrets.CUBIST_DEV_READONLY_BOT_SSH_PRIVATE_KEY }}
-        run: cargo --config net.git-fetch-with-cli=true install --force --git ssh://git@github.com/cubist-labs/cubist cubist-cli
+        run: cargo --config net.git-fetch-with-cli=true install --locked --force --git ssh://git@github.com/cubist-labs/cubist cubist-cli
 
     - name: Test Storage
       uses: ./.github/actions/rust-test

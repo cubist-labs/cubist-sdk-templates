@@ -18,10 +18,17 @@ cubist-config = { git = "ssh://git@github.com/cubist-labs/cubist.git", package =
 cubist-sdk = { git = "ssh://git@github.com/cubist-labs/cubist.git", package = "cubist-sdk" }
 clap = "4.0.32"
 color-eyre = "0.6.2"
-ethers = { version = "1.0.2" }
-ethers-core = { version = "1.0.2" }
-ethers-contract = { version = "1.0.2" }
-ethers-providers = { version = "1.0.2" }
+ethers = "~1.0.2"
+ethers-addressbook = "~1.0.2"
+ethers-contract = "~1.0.2"
+ethers-contract-abigen = "~1.0.2"
+ethers-contract-derive = "~1.0.2"
+ethers-core = "~1.0.2"
+ethers-etherscan = "~1.0.2"
+ethers-middleware = "~1.0.2"
+ethers-providers = "~1.0.2"
+ethers-signers = "~1.0.2"
+ethers-solc = "~1.0.2"
 eyre = "0.6.8"
 lazy_static = "1.4.0"
 tracing-subscriber = "0.3.16"
